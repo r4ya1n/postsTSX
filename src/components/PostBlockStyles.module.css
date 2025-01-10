@@ -1,0 +1,12 @@
+.block {
+	width: 720px;
+	margin: 25px auto 0;
+}
+
+.header {
+	font-family: 'Roboto', serif;
+	text-align: center;
+	font-size: 32px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}

@@ -1,0 +1,13 @@
+.actions {
+	display: flex;
+	justify-content: space-between;
+}
+
+.actions * {
+	display: block;
+}
+
+.sortAndBtn {
+	display: flex;
+	gap: 10px;
+}

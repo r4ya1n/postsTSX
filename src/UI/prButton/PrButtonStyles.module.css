@@ -1,0 +1,20 @@
+.btn {
+	padding: 0 5px;
+	display: block;
+	background-color: #ff9933;
+	border: none;
+	color: #fff;
+	border-radius: 2px;
+	font-family: 'Roboto', serif;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 400;
+	transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+	outline: 2px solid #ff9933;
+	cursor: pointer;
+	background-color: #fff;
+	color: #ff9933;
+}
