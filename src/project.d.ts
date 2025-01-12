@@ -4,3 +4,8 @@ export type Post = {
 	body: string
 	userId: number
 }
+
+export type PostFilter = {
+	selectSortingMethod: string
+	query: string
+}
