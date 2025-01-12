@@ -4,7 +4,6 @@ import { Post, PostFilter } from '../project'
 
 const useSortedPosts = (posts: Post[], sortedMethod: string) => {
 	return useMemo(() => {
-		console.log('sortedPosts')
 		switch (sortedMethod) {
 			case SortedMethods.byName:
 				return [...posts].sort((a, b) => a.title.localeCompare(b.title))
@@ -21,7 +20,6 @@ const useSortedPosts = (posts: Post[], sortedMethod: string) => {
 export const usePosts = (posts: Post[], filter: PostFilter) => {
 	const sortedPosts = useSortedPosts(posts, filter.selectSortingMethod)
 	return useMemo(() => {
-		console.log('sortedAndSearchPosts')
 		return sortedPosts.filter(post =>
 			post.title.toLowerCase().includes(filter.query.toLowerCase())
 		)

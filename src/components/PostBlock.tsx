@@ -23,6 +23,10 @@ export const CommentsBlock: FC = () => {
 		setIsPostsLoading(false)
 	}
 
+	function deletePost(id: number) {
+		setPosts(prevPosts => prevPosts.filter(post => post.id !== id))
+	}
+
 	useEffect(() => {
 		fetchPosts()
 		return () => {}
@@ -35,7 +39,7 @@ export const CommentsBlock: FC = () => {
 			{isPostsLoading ? (
 				<>Идет загрузка...</>
 			) : (
-				<PostsList posts={renderPosts} />
+				<PostsList deletePost={deletePost} posts={renderPosts} />
 			)}
 		</div>
 	)
