@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { PostItem } from './postItem'
 import { Post } from '../project'
+
 interface IPostsListProps {
 	posts: Post[]
 }

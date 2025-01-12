@@ -8,7 +8,9 @@ interface IPostActionProps {
 }
 
 export const PostAction: FC<IPostActionProps> = ({ sortPosts }) => {
-	const [selectedSorting, setSelectedSorting] = useState<string>()
+	const [selectedSorting, setSelectedSorting] = useState<string>(
+		SortedMethods.byName
+	)
 	return (
 		<div className={styles.actions}>
 			<input placeholder='Поиск...' />
