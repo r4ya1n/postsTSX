@@ -6,6 +6,7 @@ import { SortedMethods } from '../ENums/SortedMethods.ts'
 import { PostsList } from './PostsList.tsx'
 import { PostService } from '../API/PostService.ts'
 import { usePosts } from '../hooks/usePosts.ts'
+import { Modal } from '../UI/Modal/Modal.tsx'
 
 export const CommentsBlock: FC = () => {
 	const [isPostsLoading, setIsPostsLoading] = useState<boolean>(false)
@@ -32,10 +33,18 @@ export const CommentsBlock: FC = () => {
 		return () => {}
 	}, [])
 
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	return (
 		<div className={styles.block}>
+			<Modal isVisible={isModalVisible} setIsVisible={setIsModalVisible}>
+				Рататуй
+			</Modal>
 			<h2 className={styles.header}>Посты</h2>
-			<PostAction filter={filter} setFilter={setFilter} />
+			<PostAction
+				setIsModalVisible={setIsModalVisible}
+				filter={filter}
+				setFilter={setFilter}
+			/>
 			{isPostsLoading ? (
 				<>Идет загрузка...</>
 			) : (

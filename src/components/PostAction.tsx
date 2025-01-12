@@ -7,9 +7,15 @@ import { PostFilter } from '../project'
 interface IPostActionProps {
 	filter: PostFilter
 	setFilter: (newFilter: PostFilter) => void
+
+	setIsModalVisible: (isModalVisible: boolean) => void
 }
 
-export const PostAction: FC<IPostActionProps> = ({ filter, setFilter }) => {
+export const PostAction: FC<IPostActionProps> = ({
+	filter,
+	setFilter,
+	setIsModalVisible,
+}) => {
 	return (
 		<div className={styles.actions}>
 			<input
@@ -30,7 +36,13 @@ export const PostAction: FC<IPostActionProps> = ({ filter, setFilter }) => {
 					<option value={SortedMethods.byContent}>По контенту</option>
 					<option value={SortedMethods.byTime}>По времени</option>
 				</select>
-				<PrButton>+</PrButton>
+				<PrButton
+					onClick={() => {
+						setIsModalVisible(true)
+					}}
+				>
+					+
+				</PrButton>
 			</div>
 		</div>
 	)
