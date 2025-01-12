@@ -1,28 +1,35 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styles from './PostBlockStyles.module.css'
 import { PostAction } from './PostAction.tsx'
-import { PostItem } from './postItem.tsx'
 import type { Post } from '../project'
 import { SortedMethods } from '../ENums/SortedMethods.ts'
+import { PostService } from '../API/PostService.ts'
+import { PostsList } from './PostsList.tsx'
 
 export const CommentsBlock: FC = () => {
-	const [selectedSorting, setSelectedSorting] = useState<string>()
-	const [posts, setPosts] = useState<Post[]>([
-		{
-			userId: 1,
-			id: 1,
-			title:
-				'Аunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-			body: 'Бuia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+	const [selectedSorting, setSelectedSorting] = useState<string>(
+		SortedMethods.byName
+	)
+	const [isPostsLoading, setIsPostsLoading] = useState<boolean>(true)
+	const [posts, setPosts] = useState<Post[]>()
+
+	useEffect(
+		() => {
+			fetchPosts()
+			return () => {}
 		},
-		{
-			userId: 1,
-			id: 2,
-			title: 'Бui est esse',
-			body: 'Аst rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla',
-		},
-	])
+		//eslint-disable-next-line
+		[]
+	)
+	async function fetchPosts() {
+		setIsPostsLoading(true)
+		const response = await PostService.getAll()
+		setPosts(response.data)
+		setIsPostsLoading(false)
+	}
 	const sortPosts = (selectedSorting: string) => {
+		console.log('sortPosts')
+
 		setSelectedSorting(selectedSorting)
 		switch (selectedSorting) {
 			case SortedMethods.byName:
@@ -42,13 +49,10 @@ export const CommentsBlock: FC = () => {
 	}
 	return (
 		<div className={styles.block}>
+			<button onClick={fetchPosts}>GET POSTS</button>
 			<h2 className={styles.header}>Посты</h2>
 			<PostAction sortPosts={sortPosts} />
-			<div className='postsList'>
-				{posts.map(post => {
-					return <PostItem key={post.id} post={post} />
-				})}
-			</div>
+			{isPostsLoading ? <>Идет загрузка...</> : <PostsList posts={posts} />}
 		</div>
 	)
 }
