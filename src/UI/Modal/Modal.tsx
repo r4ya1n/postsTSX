@@ -22,12 +22,11 @@ export const Modal: FC<IModalProps> = ({
 	return (
 		<div
 			className={rootClasses.join(' ')}
-			onClick={event => {
-				event.stopPropagation()
+			onClick={() => {
 				setIsVisible(false)
 			}}
 		>
-			<div className={styles.modal}>
+			<div className={styles.modal} onClick={event => event.stopPropagation()}>
 				<PrButton
 					className={styles.closeBtn}
 					onClick={() => setIsVisible(false)}

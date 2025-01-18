@@ -7,9 +7,11 @@ import { PostsList } from './PostsList.tsx'
 import { PostService } from '../API/PostService.ts'
 import { usePosts } from '../hooks/usePosts.ts'
 import { Modal } from '../UI/Modal/Modal.tsx'
+import { PostForm } from './PostForm.tsx'
 
 export const CommentsBlock: FC = () => {
 	const [isPostsLoading, setIsPostsLoading] = useState<boolean>(false)
+	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [posts, setPosts] = useState<Post[]>([])
 	const [filter, setFilter] = useState<PostFilter>({
 		selectSortingMethod: SortedMethods.byName,
@@ -33,11 +35,11 @@ export const CommentsBlock: FC = () => {
 		return () => {}
 	}, [])
 
-	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	return (
 		<div className={styles.block}>
 			<Modal isVisible={isModalVisible} setIsVisible={setIsModalVisible}>
-				Рататуй
+				<h3>Добавить пост</h3>
+				<PostForm setPosts={setPosts} setIsModalVisible={setIsModalVisible} />
 			</Modal>
 			<h2 className={styles.header}>Посты</h2>
 			<PostAction

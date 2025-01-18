@@ -1,0 +1,30 @@
+.postForm {
+	height: 100%;
+	padding: 25px 0;
+	display: flex;
+	gap: 15px;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.postInput {
+	font-size: 16px;
+	padding: 5px;
+}
+.postTextArea {
+	height: 100%;
+	padding: 5px;
+	font-size: 16px;
+}
+.postButtons {
+	display: flex;
+	justify-content: space-between;
+}
+.resetBtn {
+	color: #636363;
+	background-color: #fff;
+	border: 1px solid #636363;
+}
+.resetBtn:hover {
+	color: #636363;
+	outline: none;
+}
