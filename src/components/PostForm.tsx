@@ -4,7 +4,7 @@ import styles from './PostForm.module.css'
 import { Post } from '../project'
 
 interface IPostForm {
-	setPosts: Dispatch<SetStateAction<Post[]>>
+	setPosts: (posts: Post[]) => void
 	setIsModalVisible: (isModalVisible: boolean) => void
 }
 

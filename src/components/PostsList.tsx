@@ -1,20 +1,25 @@
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { PostItem } from './postItem'
 import { Post } from '../project'
 
 interface IPostsListProps {
 	posts: Post[]
-	deletePost: (id: number) => void
+	renderPosts: Post[]
+	setPosts: Dispatch<SetStateAction<Post[]>>
 }
 
-export const PostsList: FC<IPostsListProps> = ({ posts, deletePost }) => {
+export const PostsList: FC<IPostsListProps> = ({
+	setPosts,
+	posts,
+	renderPosts,
+}) => {
 	if (posts.length === 0) {
 		return <>Посты не найдены</>
 	}
 	return (
 		<div className='postsList'>
-			{posts.map(post => {
-				return <PostItem deletePost={deletePost} key={post.id} post={post} />
+			{renderPosts.map(post => {
+				return <PostItem setPosts={setPosts} key={post.id} renderPost={post} />
 			})}
 		</div>
 	)
