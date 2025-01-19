@@ -8,9 +8,9 @@ import { PostService } from '../API/PostService.ts'
 import { usePosts } from '../hooks/usePosts.ts'
 import { Modal } from '../UI/Modal/Modal.tsx'
 import { PostForm } from './PostForm.tsx'
+import { useFetching } from '../hooks/useFetching.ts'
 
 export const CommentsBlock: FC = () => {
-	const [isPostsLoading, setIsPostsLoading] = useState<boolean>(false)
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 	const [posts, setPosts] = useState<Post[]>([])
 	const [filter, setFilter] = useState<PostFilter>({
@@ -18,18 +18,19 @@ export const CommentsBlock: FC = () => {
 		query: '',
 	})
 	const renderPosts = usePosts(posts, filter)
+	const [fetchPosts, isPostsLoading, errorStatus] = useFetching(async () => {
+		const ServerPosts = await PostService.getAll()
+		setPosts(ServerPosts)
+	})
 
-	async function fetchPosts() {
-		setIsPostsLoading(true)
-		const posts = await PostService.getAll()
-		setPosts(posts)
-		setIsPostsLoading(false)
-	}
-
-	useEffect(() => {
-		fetchPosts()
-		return () => {}
-	}, [])
+	useEffect(
+		() => {
+			fetchPosts()
+			return () => {}
+		},
+		// eslint-disable-next-line
+		[]
+	)
 
 	return (
 		<div className={styles.block}>
@@ -43,15 +44,13 @@ export const CommentsBlock: FC = () => {
 				filter={filter}
 				setFilter={setFilter}
 			/>
-			{isPostsLoading ? (
-				<>Идет загрузка...</>
-			) : (
-				<PostsList
-					setPosts={setPosts}
-					posts={posts}
-					renderPosts={renderPosts}
-				/>
-			)}
+			<PostsList
+				isLoading={isPostsLoading}
+				errorStatus={errorStatus}
+				setPosts={setPosts}
+				posts={posts}
+				renderPosts={renderPosts}
+			/>
 		</div>
 	)
 }
